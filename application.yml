@@ -11,7 +11,7 @@ spring:
   sql:
     init:
       mode: always
-      platform: h2
+      platform: hsqldb
   sleuth:
     sampler:
       probability: 1.0

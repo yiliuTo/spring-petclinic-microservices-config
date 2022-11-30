@@ -8,9 +8,10 @@ server:
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  datasource:
-    schema: classpath*:db/hsqldb/schema.sql
-    data: classpath*:db/hsqldb/data.sql
+  sql:
+    init:
+      mode: always
+      platform: h2
   sleuth:
     sampler:
       probability: 1.0

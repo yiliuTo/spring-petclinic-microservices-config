@@ -88,7 +88,9 @@ spring:
 
 ---
 spring:
-  profiles: key-vault
+  config:
+    activate:
+      on-profile: key-vault
 
 MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
 MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
@@ -99,3 +101,13 @@ azure:
   keyvault:
     enabled: true
     uri: ${AZURE_KEY_VAULT_URI}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/

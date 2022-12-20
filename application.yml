@@ -86,7 +86,18 @@ spring:
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
-
+---
+spring:
+  config:
+    activate:
+      on-profile: passwordless
+  datasource:
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    # url and username are injected by the service configuration as env vars
+    azure:
+      passwordless-enabled: true
+      
 ---
 spring:
   config:

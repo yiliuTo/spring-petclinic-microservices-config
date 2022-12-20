@@ -97,6 +97,10 @@ spring:
     # url and username are injected by the service configuration as env vars
     azure:
       passwordless-enabled: true
+  sql:
+    init:
+      mode: always
+      platform: mysql
       
 ---
 spring:

@@ -86,6 +86,10 @@ spring:
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
+  sql:
+    init:
+      mode: always
+      platform: mysql
 ---
 spring:
   config:

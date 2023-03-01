@@ -8,9 +8,10 @@ server:
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  datasource:
-    schema: classpath*:db/hsqldb/schema.sql
-    data: classpath*:db/hsqldb/data.sql
+  sql:
+    init:
+      mode: always
+      platform: hsqldb
   sleuth:
     sampler:
       probability: 1.0
@@ -85,10 +86,34 @@ spring:
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
-
+  sql:
+    init:
+      mode: always
+      platform: mysql
 ---
 spring:
-  profiles: key-vault
+  config:
+    activate:
+      on-profile: passwordless
+  datasource:
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    # url and username are injected by the service configuration as env vars
+    azure:
+      passwordless-enabled: true
+  sql:
+    init:
+      mode: always
+      platform: mysql
+  cloud:
+    azure:
+      compatibility-verifier.enabled: false
+      
+---
+spring:
+  config:
+    activate:
+      on-profile: key-vault
 
 MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
 MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
@@ -99,3 +124,13 @@ azure:
   keyvault:
     enabled: true
     uri: ${AZURE_KEY_VAULT_URI}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/

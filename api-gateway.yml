@@ -1,11 +1,3 @@
-zuul:
-  prefix: /api
-  ignoredServices: '*'
-  routes:
-    vets-service: /vet/**
-    visits-service: /visit/**
-    customers-service: /customer/**
-    api-gateway: /gateway/**
 
 server:
   port: 8080
@@ -16,3 +8,29 @@ server:
 
 # Internationalization
 spring.messages.basename: messages/messages
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    gateway:
+      routes:
+        - id: vets-service
+          uri: http://vets-service:8083
+          predicates:
+            - Path=/api/vet/**
+          filters:
+            - StripPrefix=2
+        - id: visits-service
+          uri: http://visits-service:8082
+          predicates:
+            - Path=/api/visit/**
+          filters:
+            - StripPrefix=2
+        - id: customers-service
+          uri: http://customers-service:8081
+          predicates:
+            - Path=/api/customer/**
+          filters:
+            - StripPrefix=2

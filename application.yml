@@ -121,7 +121,7 @@ spring:
           property-source-enabled: true
           property-sources:
             - name: key-vault-property-source-1
-              endpoint: ${AZURE_KEY_VAULT_URI}
+              endpoint: ${AZURE_KEYVAULT_URI}
 
 MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
 MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
